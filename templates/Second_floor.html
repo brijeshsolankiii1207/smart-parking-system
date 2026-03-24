@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+  <!-- Back Button -->
+  <div class="mb-3">
+    <a href="/" class="btn btn-outline-warning">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
+
+  <h2 class="fw-bold mb-4 text-warning">🚙 Second Floor Parking - SUV / 6 Seater</h2>
+  <p class="text-muted">Select a slot below to book or view details.</p>
+
+  <div class="row g-4">
+    {% for slot in slots %}
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="{% url 'create' %}?slot={{ slot.id }}" 
+           class="slot-box d-flex flex-column align-items-center justify-content-center 
+           {% if slot.status == 'occupied' %}occupied{% else %}available{% endif %}">
+           
+           <div class="slot-image mb-2">
+             {% if slot.status == 'occupied' %}
+               <img src="{% static 'images/luxary_red.jpg' %}" alt="Unavailable">
+             {% else %}
+               <img src="{% static 'images/luxary_green.jpg' %}" alt="Available">
+             {% endif %}
+           </div>
+
+           <div class="slot-label">{{ slot.slot_number }}</div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .slot-box {
+    height: 160px;
+    background: #fef3c7; /* light amber */
+    color: #92400e;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-in-out;
+    padding: 16px 12px;
+  }
+
+  .slot-box.available:hover {
+    background: #fde68a;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .slot-box.occupied {
+    background: #f3f4f6;
+    color: #9ca3af;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .slot-image img {
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    max-height: 90px;
+  }
+
+  .slot-label {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 576px) {
+    .slot-box {
+      height: 140px;
+      padding: 12px;
+    }
+
+    .slot-label {
+      font-size: 14px;
+    }
+
+    .slot-image img {
+      width: 65%;
+    }
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+
+  <!-- Back Button -->
+  <div class="mb-3">
+    <a href="/" class="btn btn-outline-primary">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
+
+  <h2 class="text-center mb-4">My Bookings</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Owner</th>
+        <th>Vehicle</th>
+        <th>Slot</th>
+        <th>Floor</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Payment Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.owner_name }}</td>
+          <td>{{ booking.vehicle_number }}</td>
+          <td>{{ booking.slot.slot_number }}</td>
+          <td>{{ booking.floor.name }}</td>
+          <td>{{ booking.start_time }}</td>
+          <td>{{ booking.end_time }}</td>
+          <td class="{% if booking.payment_status == 'paid' %}text-success{% else %}text-danger{% endif %}">
+              {{ booking.payment_status|title }}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center">No bookings found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

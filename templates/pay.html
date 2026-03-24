@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Pay for Booking #{{ booking.id }}</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Owner Name:</strong> {{ booking.owner_name }}</p>
+                    <p><strong>Vehicle Number:</strong> {{ booking.vehicle_number }}</p>
+                    <p><strong>Slot Number:</strong> {{ booking.slot.slot_number }}</p>
+                    <p><strong>Floor:</strong> {{ booking.floor.name }}</p>
+                    <p><strong>Start Time:</strong> {{ booking.start_time }}</p>
+                    <p><strong>End Time:</strong> {{ booking.end_time }}</p>
+                    <hr>
+                    <h4 class="text-center text-success">Amount to Pay: ₹{{ amount }}</h4>
+
+                    <form action="{% url 'payment_success' %}" method="POST">
+                        {% csrf_token %}
+                        <script
+                            src="https://checkout.razorpay.com/v1/checkout.js"
+                            data-key="{{ razorpay_key }}"
+                            data-amount="{{ payment.amount }}"
+                            data-currency="INR"
+                            data-order_id="{{ payment.id }}"
+                            data-buttontext="Pay ₹{{ amount }}"
+                            data-name="Smart Parking"
+                            data-description="Booking Payment"
+                            data-prefill.name="{{ booking.owner_name }}"
+                            data-prefill.email="{{ booking.email }}"
+                            data-theme.color="#0d6efd">
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

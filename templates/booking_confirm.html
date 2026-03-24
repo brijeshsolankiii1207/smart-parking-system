@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4 mx-auto" style="max-width: 650px; border: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div class="card-body p-5">
+      <h2 class="text-center text-success fw-bold mb-5" style="letter-spacing: 1px;">
+        Booking Confirmed <span style="font-size: 1.3rem;">✅</span>
+      </h2>
+
+      <h4 class="mb-4 text-uppercase text-muted fw-semibold border-bottom pb-2">Booking Details</h4>
+
+      <table class="table table-hover align-middle">
+        <tbody>
+          <tr>
+            <th class="text-secondary" style="width: 35%;">Owner Name</th>
+            <td class="fw-medium">{{ booking.owner_name }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Vehicle Number</th>
+            <td class="fw-medium">{{ booking.vehicle_number }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Mobile</th>
+            <td class="fw-medium">{{ booking.mobile }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Email</th>
+            <td class="fw-medium">{{ booking.email }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Vehicle Category</th>
+            <td class="fw-medium">{{ booking.category.name }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Floor</th>
+            <td class="fw-medium">{{ booking.floor.name }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Parking Slot</th>
+            <td class="fw-medium">{{ booking.slot.slot_number }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Start Time</th>
+            <td class="fw-medium">{{ booking.start_time|date:"M d, Y H:i" }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">End Time</th>
+            <td class="fw-medium">{{ booking.end_time|date:"M d, Y H:i" }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Parking Duration (hours)</th>
+            <td class="fw-bold text-primary">{{ duration_hours }}</td>
+          </tr>
+          <tr>
+            <th class="text-secondary">Total Cost (₹)</th>
+            <td class="fw-bold fs-5 text-success">₹ {{ cost }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-center gap-3 mt-5">
+        <a href="{% url 'index' %}" class="btn btn-outline-primary btn-lg px-4 rounded-pill fw-semibold shadow-sm">
+          Back to Home
+        </a>
+        <a href="{% url 'pay' booking.id %}" class="btn btn-primary btn-lg px-4 rounded-pill fw-semibold shadow-sm">
+          Payment
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
