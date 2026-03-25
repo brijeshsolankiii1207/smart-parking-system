@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wp*r=59#_&5klt-z=a71_s^am$_8c2ip(+sg5y(3=6^+nzxgq7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["smart-parking-system-0pzs.onrender.com"]
 
 
 # Application definition
